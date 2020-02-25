@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two of those are lying - article picker</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+        }
+
+        .finalized > #articles-setup {
+            display: none;
+        }
+
+        #articles-setup {
+            margin: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr auto;
+            grid-template-areas: "input input" "text text" "add finalize";
+            grid-gap: 2vw;
+        }
+
+        #articles-setup__input {
+            grid-area: input;
+        }
+
+        #articles-setup__text-box {
+            grid-area: text;
+        }
+
+        #articles-setup__add-btn {
+            grid-area: add;
+        }
+
+        #articles-setup__finalize-btn {
+            grid-area: finalize;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .hitable {
+            padding: 2vw;
+        }
+
+        #final-article__wrapper {
+            vertical-align: middle;
+            text-align: center;
+            word-break: break-word;
+            height: 100vh;
+            width: 100vw;
+            box-sizing: border-box;
+            padding: 5vw;
+            font-size: 20vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="articles-setup">
+        <input id="articles-setup__input" type="text" class="centered"/>
+        <div id="articles-setup__text-box" class="centered"></div>
+        <button id="articles-setup__add-btn" class="hitable">Add article</button>
+        <button id="articles-setup__finalize-btn" class="hitable">Finalize</button>
+    </div>
+
+    <div id="final-article__wrapper">
+        <div id="final-article"></div>
+    </div>
+
+    <script type="text/javascript">
+        const listOfArticles = [];
+
+        document.querySelector("#articles-setup__add-btn").addEventListener("click", addArticleToList);
+        document.querySelector("#articles-setup__finalize-btn").addEventListener("click", finalizeList);
+        document.addEventListener("load", focusOnInput);
+        updateArticlesTextBox();
+
+        function addArticleToList() {
+            const articleName = document.querySelector("#articles-setup__input").value;
+
+            if (!articleName) {
+                alert("False article name");
+                return;
+            }
+
+            document.querySelector("#articles-setup__input").value = "";
+            listOfArticles.push(articleName);
+            updateArticlesTextBox();
+            focusOnInput();
+        }
+
+        function finalizeList() {
+            const countedIndex = Math.floor(Math.random() * 100) % listOfArticles.length;
+            document.querySelector("#final-article").textContent = listOfArticles[countedIndex];
+            document.body.classList.add("finalized");
+        }
+
+        function updateArticlesTextBox() {
+            document.querySelector("#articles-setup__text-box").textContent = `There are ${listOfArticles.length} already added to the list.`;
+        }
+
+        function focusOnInput() {
+            document.querySelector("#articles-setup__input").focus = true;
+        }
+    </script>
+</body>
+</html>
