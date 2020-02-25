@@ -1,0 +1,9 @@
+{
+  "short_name": "Lying bastards",
+  "name": "Lying bastards",
+  "description": "Two of those will be lying",
+  "background_color": "#000000",
+  "display": "standalone",
+  "orientation":  "landscape",
+  "theme_color": "#000000"
+}
