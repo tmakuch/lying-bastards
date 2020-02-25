@@ -66,6 +66,14 @@
         justify-content: center;
         align-items: center;
       }
+
+      #final-article__check + #final-article {
+        opacity: 0;
+      }
+      #final-article__check:checked + #final-article {
+        transition: opacity 1s;
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
@@ -78,9 +86,10 @@
       </button>
     </div>
 
-    <div id="final-article__wrapper">
+    <label id="final-article__wrapper">
+      <input id="final-article__check" type="checkbox" hidden="hidden"/>
       <div id="final-article"></div>
-    </div>
+    </label>
 
     <script type="text/javascript">
       const listOfArticles = [];
@@ -108,7 +117,7 @@
       }
 
       function safeAddArticleToList() {
-        if (addArticleToList()) {
+        if (!addArticleToList()) {
           alert("False article name");
         }
       }
@@ -130,7 +139,7 @@
       function finalizeList() {
         addArticleToList();
         const countedIndex =
-          Math.floor(Math.random() * 100) % listOfArticles.length;
+          Math.floor(Math.random() * 1000000) % listOfArticles.length;
         document.querySelector("#final-article").textContent =
           listOfArticles[countedIndex];
         document.body.classList.add("finalized");
